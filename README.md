@@ -1,17 +1,23 @@
-# Compose deployments scraper
+# Compose cluster metrics scraper
 
-Scraper for compose deployments page
+A scraper for the webpage of our Compose cluster, logging metrics to Datadog. An app in `main.py` runs this scraper at regular intervals. This app is then deployed on the GOV.UK PaaS.
 
-`pip install -r requirements.txt`
+## How to run
 
-Download the html of the compose deployments page into a directory, and run
+Use Python 3. Install pip packages with `pip3 install -r requirements.txt`.
 
-`python -m SimpleHTTPServer 8001` within this directory
+You can run the app with `python3 main.py` but will need to provide several environment variables:
 
-Then run the crawler with
+* `DATADOG_API_KEY` and `DATADOG_APP_KEY`: Datadog API credentials sufficient to log metrics
+* `COMPOSE_EMAIL` and `COMPOSE_PASSWORD`: Compose login details able to view the cluster
 
-`scrapy crawl deployment`
+## How to work on the scraper
 
-the css selectors are very basic and would need to be refined. Its also only
-outputting the rows we are interested in at the moment, need to break this down
-further
+`python3 -m unittest test_cluster_scraper` runs the scraper against a HTML file. It does not log to Datadog and does not require the above credentials.
+
+If Datadog alerting tells you the scraper is no longer functioning, the suggested path is:
+
+1. Manually update the `responses/fixtures/compose.html` HTML file and the test expectations;
+2. Alter the scraper until those tests pass;
+3. Run the app locally and ensure it is reporting correctly to Datadog.
+4. Have your changes reviewed and manually create a new tagged release once they are merged.

@@ -24,7 +24,7 @@ def init_datadog():
     Initialise the datadog instance.
     :return:
     """
-    initialize()
+    initialize(api_key=env('DATADOG_API_KEY'),app_key=env('DATADOG_APP_KEY'))
 
 
 def send_metric(metric_name, metric_description, metric_unit, metric_value,
@@ -78,9 +78,11 @@ class Report(object):
     def warning(message="Warning"):
         report_health(CheckStatus.WARNING, message)
 
-def env(name):
+def env(name, default=None):
     try:
         return os.environ[name]
     except KeyError:
+        if default is not None:
+            return default
         print("Required environment variable '{}' not set".format(name))
         sys.exit(1)

@@ -10,6 +10,8 @@ You can run the app with `python3 main.py` but will need to provide several envi
 
 * `DATADOG_API_KEY` and `DATADOG_APP_KEY`: Datadog API credentials sufficient to log metrics
 * `COMPOSE_EMAIL` and `COMPOSE_PASSWORD`: Compose login details able to view the cluster
+* `COMPOSE_ACCOUNT_NAME`: Compose account name
+* `COMPOSE_CLUSTER_ID`: Id of the cluster to query
 
 ## How to work on the scraper
 

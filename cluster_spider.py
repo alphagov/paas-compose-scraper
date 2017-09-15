@@ -3,7 +3,6 @@ import utils
 import re
 from datetime import datetime, timedelta
 from scrapy.http import Request
-import os
 from datadog import api
 
 
@@ -19,13 +18,13 @@ class ClusterSpider(scrapy.Spider):
             response,
             formxpath='//form[@class="login-form"]',
             formdata={
-                'user[email]': os.environ['COMPOSE_EMAIL'],
-                'user[password]': os.environ['COMPOSE_PASSWORD'],
+                'user[email]': utils.env('COMPOSE_EMAIL'),
+                'user[password]': utils.env('COMPOSE_PASSWORD'),
             },
             callback=self.after_login)
 
     def after_login(self, response):
-        url = 'https://app.compose.io/gds/clusters/5941cf9f859d2c0015000021'
+        url = 'https://app.compose.io/{}/clusters/{}'.format(utils.env('COMPOSE_ACCOUNT_NAME'), utils.env('COMPOSE_CLUSTER_ID'))
         yield Request(url=url, callback=self.action)
 
     def action(self, response):

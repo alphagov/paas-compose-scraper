@@ -1,4 +1,5 @@
 import os
+import sys
 import time
 from datadog import initialize, api
 from datadog.api.constants import CheckStatus
@@ -81,3 +82,10 @@ class Report(object):
     @staticmethod
     def warning(message="Warning"):
         report_health(CheckStatus.WARNING, message)
+
+def env(name):
+    try:
+        return os.environ[name]
+    except KeyError:
+        print("Required environment variable '{}' not set".format(name))
+        sys.exit(1)

@@ -9,11 +9,11 @@ class ClusterScraperTest(unittest.TestCase):
         self.scraper = ClusterScraper(fake_response)
 
     def test_name(self):
-        self.assertEqual(self.scraper.name, 'gds-eu-west1-c00')
+        self.assertEqual(self.scraper.name, 'FAKEACCNAME-eu-west1-c00')
 
     def test_metrics(self):
         self.assertEqual(self.scraper.metrics, {
-            'gds-eu-west1-c00.0.compose.direct': {
+            'FAKEACCNAME-eu-west1-c00.0.compose.direct': {
                 'ram': {
                     'in_use': 23.0,
                     'used': 3.59,
@@ -25,7 +25,7 @@ class ClusterScraperTest(unittest.TestCase):
                     'total': 157,
                 }
             },
-            'gds-eu-west1-c00.1.compose.direct': {
+            'FAKEACCNAME-eu-west1-c00.1.compose.direct': {
                 'ram': {
                     'in_use': 47.0,
                     'used': 7.29,
@@ -37,7 +37,7 @@ class ClusterScraperTest(unittest.TestCase):
                     'total': 157,
                 }
             },
-            'gds-eu-west1-c00.2.compose.direct': {
+            'FAKEACCNAME-eu-west1-c00.2.compose.direct': {
                 'ram': {
                     'in_use': 18.0,
                     'used': 2.86,

@@ -8,10 +8,14 @@ Use Python 3. Install pip packages with `pip3 install -r requirements.txt`.
 
 You can run the app with `python3 main.py` but will need to provide several environment variables:
 
-* `DATADOG_API_KEY` and `DATADOG_APP_KEY`: Datadog API credentials sufficient to log metrics
-* `COMPOSE_EMAIL` and `COMPOSE_PASSWORD`: Compose login details able to view the cluster
+* `DATADOG_API_KEY`: Datadog account api key
+* `DATADOG_APP_KEY`: Datadog application key
+* `DATADOG_TAGS`: [OPTIONAL] Comma seperated list of tags to mark the metrics with (ie: `deployment:prod,host:metrics`
+* `COMPOSE_EMAIL`: Compose account login with suitable access
+* `COMPOSE_PASSWORD`: Compose password for above
 * `COMPOSE_ACCOUNT_NAME`: Compose account name
 * `COMPOSE_CLUSTER_ID`: Id of the cluster to query
+* `CHECK_INTERVAL_SECONDS`: [OPTIONAL] number of seconds between scraping attempts (default=600)
 
 ## How to work on the scraper
 

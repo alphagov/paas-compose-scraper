@@ -34,14 +34,12 @@ def send_metric(metric_name, metric_description, metric_unit, metric_value,
     """
     tags = [
         'cluster:{}'.format(cluster_name),
-        'deployment:{}'.format(os.environ['DEPLOY_ENV'])
-    ]
+    ] + os.environ.get('DATADOG_TAGS','').split(',')
     timestamp = int(time.time())
 
     api.Metric.send(
         metric=metric_name,
         tags=tags,
-        host=host_name,
         points=(timestamp, metric_value))
 
     api.Metadata.update(
@@ -61,13 +59,10 @@ def report_health(status, message):
     print(message)
 
     check = 'compose.scraper.ok'
-    host = 'compose-scraper-{}'.format(os.environ['DEPLOY_ENV'])
-    tags = [
-        'deployment:{}'.format(os.environ['DEPLOY_ENV']),
-    ]
+    tags = os.environ.get('DATADOG_TAGS', '').split(',')
 
     api.ServiceCheck.check(
-        check=check, host_name=host, status=status, message=message, tags=tags)
+        check=check, status=status, message=message, tags=tags)
 
 
 class Report(object):

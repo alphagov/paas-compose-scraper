@@ -1,0 +1,5 @@
+language: python
+python:
+  - 3.6
+script:
+  - DATADOG_API_KEY=fake-api-key DATADOG_APP_KEY=fake-app-key python3 -m unittest test_cluster_scraper

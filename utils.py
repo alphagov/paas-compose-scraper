@@ -34,13 +34,17 @@ def send_metric(metric_name, metric_description, metric_unit, metric_value,
     """
     tags = [
         'cluster:{}'.format(cluster_name),
+        'host:{}'.format(host_name),
     ] + os.environ.get('DATADOG_TAGS','').split(',')
     timestamp = int(time.time())
 
     api.Metric.send(
         metric=metric_name,
         tags=tags,
+        host=host_name,
         points=(timestamp, metric_value))
+
+    print("sending metric: {} {} {}".format(metric_name, tags, metric_value))
 
     api.Metadata.update(
         metric_name=metric_name,

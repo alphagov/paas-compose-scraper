@@ -18,13 +18,13 @@ class ClusterSpider(scrapy.Spider):
             response,
             formxpath='//form[@class="login-form"]',
             formdata={
-                'user[email]': utils.env('COMPOSE_EMAIL'),
-                'user[password]': utils.env('COMPOSE_PASSWORD'),
+                'user[email]': self.settings.get('COMPOSE_EMAIL'),
+                'user[password]': self.settings.get('COMPOSE_PASSWORD'),
             },
             callback=self.after_login)
 
     def after_login(self, response):
-        url = 'https://app.compose.io/{}/clusters/{}'.format(utils.env('COMPOSE_ACCOUNT_NAME'), utils.env('COMPOSE_CLUSTER_ID'))
+        url = 'https://app.compose.io/{}/clusters/{}'.format(self.settings.get('COMPOSE_ACCOUNT_NAME'), self.settings.get('COMPOSE_CLUSTER_ID'))
         yield Request(url=url, callback=self.action)
 
     def action(self, response):
